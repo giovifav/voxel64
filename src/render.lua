@@ -3,6 +3,7 @@ local render = Object:extend()
 local ms = math.sin
 local mc = math.cos
 local mf = math.floor
+
 function render:new(terrain)
     self.angle = 90
     self.x = 0
@@ -15,7 +16,6 @@ function render:new(terrain)
     self.renderWidth = 320
     self.renderHeight = 320
     self.distanceStep = 1
-
     self.terrain = terrain
     -- base 1  pixel image
     local img = love.image.newImageData(1, 1)
@@ -53,7 +53,6 @@ function render:update(dt)
 end
 
 function render:updateRender()
-
     local sinphi = ms(self.angle)
     local cosphi = mc(self.angle)
     local yBuffer = {}
