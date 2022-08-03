@@ -4,7 +4,7 @@ function love.load()
     love.graphics.setLineStyle("rough")
     --importing globals
     object = require('libs.classic')
-    terrain = require('src.terrain')("assets/map.png","assets/heightmap.png")
+    terrain = require('src.terrain')("maps/C1W.png","maps/C1D.png")
     love.keyboard.keysPressed = {}
 end
 
