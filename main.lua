@@ -8,7 +8,6 @@ function love.load()
     render = require('src.render')(terrain)
     love.keyboard.keysPressed = {}
 end
-
 function love.keypressed(key)
     if key == 'escape' then
         love.event.quit()
@@ -24,15 +23,19 @@ function love.update(dt)
     render:update(dt)
     if love.keyboard.wasPressed("1")then
         terrain = require('src.terrain')("maps/C1W.png","maps/C1D.png")
+        render = require('src.render')(terrain)
     end
     if love.keyboard.wasPressed("2")then
         terrain = require('src.terrain')("maps/C2W.png","maps/C2D.png")
+        render = require('src.render')(terrain)
     end
     if love.keyboard.wasPressed("3")then
         terrain = require('src.terrain')("maps/C3W.png","maps/C3D.png")
+        render = require('src.render')(terrain)
     end
     if love.keyboard.wasPressed("4")then
         terrain = require('src.terrain')("maps/C4W.png","maps/C4D.png")
+        render = require('src.render')(terrain)
     end
     love.keyboard.keysPressed = {}
 end
