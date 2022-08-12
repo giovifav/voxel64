@@ -1,11 +1,11 @@
+local render
 function love.load()
     love.window.setTitle('voxelspace')
     love.graphics.setDefaultFilter('nearest', 'nearest')
     love.graphics.setLineStyle("smooth")
-    --importing globals
-    Object = require('libs.classic')
-    terrain = require('src.terrain')("maps/C1W.png","maps/C1D.png")
-    render = require('src.render')(terrain)
+    voxelspace = require('voxelspace')
+    local terrain = voxelspace.terrain('maps/1.png', 'maps/1h.png')
+    render = voxelspace.render(terrain)
     love.keyboard.keysPressed = {}
 end
 function love.keypressed(key)
@@ -21,22 +21,24 @@ end
 
 function love.update(dt)
     render:update(dt)
+    
     if love.keyboard.wasPressed("1")then
-        terrain = require('src.terrain')("maps/C1W.png","maps/C1D.png")
-        render = require('src.render')(terrain)
+        local terrain = voxelspace.terrain('maps/1.png', 'maps/1h.png')("maps/C1W.png","maps/C1D.png")
+        render = voxelspace.render(terrain)
     end
     if love.keyboard.wasPressed("2")then
-        terrain = require('src.terrain')("maps/C2W.png","maps/C2D.png")
-        render = require('src.render')(terrain)
+        local terrain = voxelspace.terrain("maps/C2W.png","maps/C2D.png")
+        render = voxelspace.render(terrain)
     end
     if love.keyboard.wasPressed("3")then
-        terrain = require('src.terrain')("maps/C3W.png","maps/C3D.png")
-        render = require('src.render')(terrain)
+        local terrain = voxelspace.terrain("maps/C3W.png","maps/C3D.png")
+        render = voxelspace.render(terrain)
     end
     if love.keyboard.wasPressed("4")then
-        terrain = require('src.terrain')("maps/C4W.png","maps/C4D.png")
-        render = require('src.render')(terrain)
+        local terrain = voxelspace.terrain("maps/C4W.png","maps/C4D.png")
+        render = voxelspace.render(terrain)
     end
+    
     love.keyboard.keysPressed = {}
 end
 

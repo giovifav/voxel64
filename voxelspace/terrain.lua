@@ -40,9 +40,12 @@ function terrain:toIndex(x, y)
     return (y - 1) * self.width + (x - 1)
 end
 
-
+function terrain:getColor(x, y)
+    return self.r[self:toIndex(x, y)] , self.g[self:toIndex(x, y)] , self.b[self:toIndex(x, y)] , 1
+end
 
 function terrain:getR(x,y)
+    
     return self.r[self:toIndex(x, y)] 
 end
 
