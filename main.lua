@@ -1,4 +1,5 @@
 local render
+local voxelspace
 function love.load()
     love.window.setTitle('voxelspace')
     love.graphics.setDefaultFilter('nearest', 'nearest')

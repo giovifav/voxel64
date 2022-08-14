@@ -1,3 +1,9 @@
+
+local current_folder = (...):gsub('%.[^%.]+$', '')
+local Object = require(current_folder .. '.oop')
+
+
+
 local render = Object:extend()
 --make useful functions local for speed
 local ms = math.sin
@@ -89,19 +95,19 @@ function render:updateRender()
                 else
                     self.spriteBatch:setColor(r, g, b, 1)
                     self.spriteBatch:add(i, heightOnScreen + lean, nil, 1, scaleY)
-                end
+                
                 yBuffer[i] = heightOnScreen
             end
             pleftx = pleftx + dx
             plefty = plefty + dy
         end
         if z > 300 then dz = dz + 0.05 end
-        z = z + dz
+        z = z 
     end
 end
 
 function render:draw()
-    love.graphics.draw(self.backgroundBatch)
+    --love.graphics.draw(self.backgroundBatch)
     love.graphics.draw(self.spriteBatch)
 end
 

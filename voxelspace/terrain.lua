@@ -1,5 +1,10 @@
 --- the terrain class generate terrain data info with color map and height map
 
+local current_folder = (...):gsub('%.[^%.]+$', '')
+local Object = require(current_folder .. '.oop')
+
+
+
 local terrain = Object:extend()
 function terrain:new(colormap, heighmap)
     self.colorMap = love.image.newImageData(colormap)
