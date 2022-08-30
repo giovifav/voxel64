@@ -23,6 +23,7 @@ function render:new(terrain)
     self.renderHeight = 320
     self.distanceStep = 1
     self.terrain = terrain
+    self.lean = 0
     -- base 1  pixel image
     local img = love.image.newImageData(1, 1)
     img:setPixel(0, 0, 1, 1, 1, 1)
@@ -61,9 +62,9 @@ end
 function render:updateRender()
     local sinphi = ms(self.angle)
     local cosphi = mc(self.angle)
-    local yBuffer = {}
+    local buffer = {}
     for i = 0, self.renderWidth do
-        yBuffer[i] = self.renderHeight
+        buffer[i] = self.renderHeight
     end
     local dz = self.distanceStep
     local z = 0
@@ -85,8 +86,8 @@ function render:updateRender()
             local h = self.terrain:getH(x,y)
             local heightOnScreen = mf(((self.viewHeight - h * 256) / z * self.scaleHeight + self.horizon) + 0.5)
             local lean = mf(((self.lean * (i / self.renderWidth - 0.5) + 0.5) * self.renderWidth / 9) + 0.5)
-            if heightOnScreen < yBuffer[i] then
-                local scaleY = yBuffer[i] - heightOnScreen + 1
+            if heightOnScreen < buffer[i] then
+                local scaleY = buffer[i] - heightOnScreen + 1
                 if z > self.visibility then
                     local opacity = (self.distance - z) / self.distance
                     self.backgroundBatch:add(i, heightOnScreen + lean, nil, 1, scaleY)
@@ -95,19 +96,19 @@ function render:updateRender()
                 else
                     self.spriteBatch:setColor(r, g, b, 1)
                     self.spriteBatch:add(i, heightOnScreen + lean, nil, 1, scaleY)
-                
-                yBuffer[i] = heightOnScreen
+                end
+                buffer[i] = heightOnScreen
             end
             pleftx = pleftx + dx
             plefty = plefty + dy
         end
         if z > 300 then dz = dz + 0.05 end
-        z = z 
-    end
+        z = z + dz
+        end
 end
 
 function render:draw()
-    --love.graphics.draw(self.backgroundBatch)
+    love.graphics.draw(self.backgroundBatch)
     love.graphics.draw(self.spriteBatch)
 end
 
