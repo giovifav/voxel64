@@ -73,29 +73,31 @@ function render:updateRender()
     while z < self.distance do
         local cosz = cosphi * z
         local sinz = sinphi * z
+
         local pleftx = (-cosz - sinz) + self.x
         local plefty = (sinz - cosz) + self.y
         local prightx = (cosz - sinz) + self.x
         local prighty = (-sinz - cosz) + self.y
         local dx = (prightx - pleftx) / self.renderWidth
         local dy = (prighty - plefty) / self.renderWidth
-        for i = 0, self.renderWidth do
+        for i = 0, self.renderWidth-1 do
             local x = mf((pleftx % self.terrain.width) + 0.5)
             local y = mf((plefty % self.terrain.width) + 0.5)
             local r, g, b = self.terrain:getColor(x,y)
             local h = self.terrain:getH(x,y)
             local heightOnScreen = mf(((self.viewHeight - h * 256) / z * self.scaleHeight + self.horizon) + 0.5)
             local lean = mf(((self.lean * (i / self.renderWidth - 0.5) + 0.5) * self.renderWidth / 9) + 0.5)
+            local heightLean = heightOnScreen + lean
             if heightOnScreen < buffer[i] then
                 local scaleY = buffer[i] - heightOnScreen + 1
                 if z > self.visibility then
                     local opacity = (self.distance - z) / self.distance
-                    self.backgroundBatch:add(i, heightOnScreen + lean, nil, 1, scaleY)
+                    self.backgroundBatch:add(i, heightLean, nil, 1, scaleY)
                     self.spriteBatch:setColor(r, g, b, opacity)
-                    self.spriteBatch:add(i, heightOnScreen + lean, nil, 1, scaleY)
+                    self.spriteBatch:add(i, heightLean, nil, 1, scaleY)
                 else
                     self.spriteBatch:setColor(r, g, b, 1)
-                    self.spriteBatch:add(i, heightOnScreen + lean, nil, 1, scaleY)
+                    self.spriteBatch:add(i, heightLean, nil, 1, scaleY)
                 end
                 buffer[i] = heightOnScreen
             end
