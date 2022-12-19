@@ -10,7 +10,8 @@ local voxelspace = {
 }
 
 local current_folder = (...):gsub('%.init$', '') 
-voxelspace.terrain = require(current_folder .. '.terrain')
+voxelspace.imgMapsTerrain = require(current_folder .. '.imgMapsTerrain')
+voxelspace.shaderGenTerrain = require(current_folder .. '.shaderGenTerrain')
 voxelspace.render = require(current_folder .. '.render')
 
 

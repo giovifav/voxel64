@@ -1,4 +1,4 @@
---- the terrain class generate terrain data info with color map and height map
+---  terrain class that generate terrain data info from a color map and a height map
 
 local current_folder = (...):gsub('%.[^%.]+$', '')
 local Object = require(current_folder .. '.oop')

@@ -7,11 +7,11 @@ function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
     love.graphics.setLineStyle("smooth")
     voxelspace = require('voxelspace')
-    local terrain = voxelspace.terrain('maps/1.png', 'maps/1h.png')
+    local terrain = voxelspace.shaderGenTerrain(6000)
     render = voxelspace.render(terrain)
     love.keyboard.keysPressed = {}
     cockpit = love.graphics.newImage("cockpit.png")
-    center:setupScreen(320 , 320)
+    center:setupScreen(320 , 240)
 end
 function love.keypressed(key)
     if key == 'escape' then
@@ -51,7 +51,7 @@ function love.draw()
     love.graphics.setBackgroundColor(86 /255,180/255,211/255)
     center:start()
     render:draw() 
-    love.graphics.draw(cockpit)
+   -- love.graphics.draw(cockpit)
     center:finish()
     love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
 end

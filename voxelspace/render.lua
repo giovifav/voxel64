@@ -5,22 +5,24 @@ local Object = require(current_folder .. '.oop')
 
 
 local render = Object:extend()
---make useful functions local for speed
+
+
+
 local ms = math.sin
 local mc = math.cos
 local mf = math.floor
 
-function render:new(terrain)
+function render:new(terrain,w,h)
     self.angle = 90
     self.x = 0
     self.y = 0
-    self.horizon = 100
+    self.horizon = 60
     self.distance = 900
     self.visibility = self.distance * 0.7
     self.viewHeight = 130
     self.scaleHeight = 120
-    self.renderWidth = 320
-    self.renderHeight = 320
+    self.renderWidth = w or 320
+    self.renderHeight = h or 240
     self.distanceStep = 1
     self.terrain = terrain
     self.lean = 0
@@ -28,12 +30,8 @@ function render:new(terrain)
     local img = love.image.newImageData(1, 1)
     img:setPixel(0, 0, 1, 1, 1, 1)
     img = love.graphics.newImage(img)
-    -- base 1  pixel image for background
-    local backgroundImage = love.image.newImageData(1, 1)
-    backgroundImage:setPixel(0, 0, 0, 0, 0, 1)
-    backgroundImage = love.graphics.newImage(backgroundImage)
+  
     self.spriteBatch = love.graphics.newSpriteBatch(img)
-    self.backgroundBatch = love.graphics.newSpriteBatch(backgroundImage)
 end
 
 function render:update(dt)
@@ -69,7 +67,6 @@ function render:updateRender()
     local dz = self.distanceStep
     local z = 0
     self.spriteBatch:clear()
-    self.backgroundBatch:clear()
     while z < self.distance do
         local cosz = cosphi * z
         local sinz = sinphi * z
@@ -91,8 +88,8 @@ function render:updateRender()
             if heightOnScreen < buffer[i] then
                 local scaleY = buffer[i] - heightOnScreen + 1
                 if z > self.visibility then
-                    local opacity = (self.distance - z) / self.distance
-                    self.backgroundBatch:add(i, heightLean, nil, 1, scaleY)
+                    local opacity = ((self.distance - z) / self.distance) * 2
+                    
                     self.spriteBatch:setColor(r, g, b, opacity)
                     self.spriteBatch:add(i, heightLean, nil, 1, scaleY)
                 else
@@ -110,7 +107,6 @@ function render:updateRender()
 end
 
 function render:draw()
-    love.graphics.draw(self.backgroundBatch)
     love.graphics.draw(self.spriteBatch)
 end
 
