@@ -7,7 +7,7 @@ function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
     love.graphics.setLineStyle("smooth")
     voxelspace = require('voxelspace')
-    local terrain = voxelspace.shaderGenTerrain(6000)
+    local terrain = voxelspace.shaderGenTerrain(300)
     render = voxelspace.render(terrain)
     love.keyboard.keysPressed = {}
     cockpit = love.graphics.newImage("cockpit.png")
@@ -28,19 +28,19 @@ function love.update(dt)
     render:update(dt)
     
     if love.keyboard.wasPressed("1")then
-        local terrain = voxelspace.terrain('maps/1.png', 'maps/1h.png')("maps/C1W.png","maps/C1D.png")
+        local terrain = voxelspace.imgMapsTerrain("maps/C1W.png","maps/C1D.png")
         render = voxelspace.render(terrain)
     end
     if love.keyboard.wasPressed("2")then
-        local terrain = voxelspace.terrain("maps/C2W.png","maps/C2D.png")
+        local terrain = voxelspace.imgMapsTerrain("maps/C2W.png","maps/C2D.png")
         render = voxelspace.render(terrain)
     end
     if love.keyboard.wasPressed("3")then
-        local terrain = voxelspace.terrain("maps/C3W.png","maps/C3D.png")
+        local terrain = voxelspace.imgMapsTerrain("maps/C3W.png","maps/C3D.png")
         render = voxelspace.render(terrain)
     end
     if love.keyboard.wasPressed("4")then
-        local terrain = voxelspace.terrain("maps/C4W.png","maps/C4D.png")
+        local terrain = voxelspace.imgMapsTerrain("maps/C4W.png","maps/C4D.png")
         render = voxelspace.render(terrain)
     end
     

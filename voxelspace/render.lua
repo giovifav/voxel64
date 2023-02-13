@@ -17,13 +17,13 @@ function render:new(terrain,w,h)
     self.x = 0
     self.y = 0
     self.horizon = 60
-    self.distance = 900
+    self.distance = 500
     self.visibility = self.distance * 0.7
     self.viewHeight = 130
     self.scaleHeight = 120
     self.renderWidth = w or 320
     self.renderHeight = h or 240
-    self.distanceStep = 1
+    self.distanceStep = 1.5
     self.terrain = terrain
     self.lean = 0
     -- base 1  pixel image
@@ -70,7 +70,6 @@ function render:updateRender()
     while z < self.distance do
         local cosz = cosphi * z
         local sinz = sinphi * z
-
         local pleftx = (-cosz - sinz) + self.x
         local plefty = (sinz - cosz) + self.y
         local prightx = (cosz - sinz) + self.x
@@ -89,20 +88,19 @@ function render:updateRender()
                 local scaleY = buffer[i] - heightOnScreen + 1
                 if z > self.visibility then
                     local opacity = ((self.distance - z) / self.distance) * 2
-                    
                     self.spriteBatch:setColor(r, g, b, opacity)
                     self.spriteBatch:add(i, heightLean, nil, 1, scaleY)
                 else
                     self.spriteBatch:setColor(r, g, b, 1)
                     self.spriteBatch:add(i, heightLean, nil, 1, scaleY)
-                end
+                end 
                 buffer[i] = heightOnScreen
             end
             pleftx = pleftx + dx
             plefty = plefty + dy
         end
         if z > 300 then dz = dz + 0.05 end
-        z = z + dz
+            z = z + dz
         end
 end
 
